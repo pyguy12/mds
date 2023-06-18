@@ -1,9 +1,11 @@
 import pytest
+from pytest_mock import mocker
 from mds_data_structures.mds_array import MDSArray
 
 @pytest.fixture
-def array():
-    return MDSArray(1, 2, 2, 3, 4)
+def array(mocker):
+    animator_mock = mocker.Mock()
+    return MDSArray(elementsList=[1, 2, 2, 3, 4], animator=animator_mock)
 
 def test_append(array):
     array.append(5)
@@ -65,3 +67,7 @@ def test_sort(array):
     assert array[2] == 2
     assert array[3] == 3
     assert array[4] == 4
+
+def test_insert_calls_animate_insertion(array):
+    array.insert(0, 'value')
+    array.animator.animate_insertion.assert_called_once_with('value', 0)

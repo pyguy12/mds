@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
 
 class MDSDataStructure(ABC):
+    def __init__(self, animator):
+        self.animator = animator
+
     @abstractmethod
     def __getitem__(self, index):
         pass

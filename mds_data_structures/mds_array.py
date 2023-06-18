@@ -1,8 +1,9 @@
 from mds_data_structures.mds_data_structure import MDSLinearDataStructure
 
 class MDSArray(MDSLinearDataStructure):
-    def __init__(self, *elements):
-        self.array = list(elements)
+    def __init__(self, elementsList, animator):
+        self.animator = animator
+        self.array = elementsList
 
     def __getitem__(self, index):
         # Manim code to animate element access
@@ -57,6 +58,7 @@ class MDSArray(MDSLinearDataStructure):
         # Manim code to animate insertion
         pass
         self.array.insert(index, value)
+        self.animator.animate_insertion(value, index)
 
     def append(self, value):
         # Manim code to animate appending
