@@ -3,11 +3,11 @@ from mds_data_structures.mds_array import MDSArray
 
 @pytest.fixture
 def array():
-    return MDSArray(1, 2, 3, 4)
+    return MDSArray(1, 2, 2, 3, 4)
 
 def test_append(array):
     array.append(5)
-    assert array[4] == 5
+    assert array[5] == 5
 
 def test_getitem(array):
     assert array[0] == 1
@@ -18,9 +18,50 @@ def test_setitem(array):
 
 def test_delitem(array):
     del array[0]
-    assert len(array) == 3
+    assert len(array) == 4
 
 def test_insert(array):
     array.insert(2, 6)
     assert array[2] == 6
-    assert len(array) == 5
+    assert len(array) == 6
+
+def test_contains(array):
+    assert (5 in array) is False
+    assert (1 in array) is True
+
+def test_index(array):
+    assert array.index(1) == 0
+    assert array.index(2) == 1
+    with pytest.raises(ValueError):
+        array.index(5) # Should raise ValueError as 5 is not in the list
+
+def test_count(array):
+    assert array.count(2) == 2
+    assert array.count(5) == 0
+
+def test_extend(array):
+    array.extend([5, 6, 7])
+    assert len(array) == 8
+    assert array[5] == 5
+    assert array[6] == 6
+    assert array[7] == 7
+
+def test_pop(array):
+    assert array.pop() == 4
+    assert len(array) == 4
+    assert array.pop(1) == 2
+    assert len(array) == 3
+
+def test_reverse(array):
+    array.reverse()
+    assert array[0] == 4
+    assert array[3] == 2
+    assert array[4] == 1
+
+def test_sort(array):
+    array.sort()
+    assert array[0] == 1
+    assert array[1] == 2
+    assert array[2] == 2
+    assert array[3] == 3
+    assert array[4] == 4

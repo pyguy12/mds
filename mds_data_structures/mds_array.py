@@ -21,6 +21,37 @@ class MDSArray(MDSLinearDataStructure):
 
     def __len__(self):
         return len(self.array)
+    
+    def __contains__(self, value):
+        # Manim code to animate element search
+        return value in self.array
+    
+    def index(self, value):
+        # Manim code to animate index retrieval
+        return self.array.index(value)
+    
+    def count(self, value):
+        # Manim code to animate count operation
+        return self.array.count(value)
+
+    def extend(self, iterable):
+        # Manim code to animate extending
+        self.array.extend(iterable)
+
+    def pop(self, index=None):
+        # Manim code to animate pop operation
+        if index is None:
+            return self.array.pop()
+        else:
+            return self.array.pop(index)
+
+    def reverse(self):
+        # Manim code to animate reversing
+        self.array.reverse()
+
+    def sort(self):
+        # Manim code to animate sorting
+        self.array.sort()
 
     def insert(self, index, value):
         # Manim code to animate insertion
