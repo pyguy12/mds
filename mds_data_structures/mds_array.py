@@ -1,9 +1,14 @@
+from mds_animators.mds_array_animator import MDSArrayAnimator
 from mds_data_structures.mds_data_structure import MDSLinearDataStructure
 
 class MDSArray(MDSLinearDataStructure):
-    def __init__(self, elementsList, animator):
+    def __init__(self, elementsList, animator: MDSArrayAnimator):
+        if not isinstance(animator, MDSArrayAnimator):
+            raise TypeError(f"Expected animator of type MDSArrayAnimator, but got {type(animator).__name__}")
         self.animator = animator
         self.array = elementsList
+        #Animate init, maybe do events later
+        animator.animate_init(elementsList)
 
     def __getitem__(self, index):
         # Manim code to animate element access

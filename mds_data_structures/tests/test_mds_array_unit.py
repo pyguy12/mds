@@ -1,10 +1,11 @@
 import pytest
 from pytest_mock import mocker
+from mds_animators.mds_array_animator import MDSArrayAnimator
 from mds_data_structures.mds_array import MDSArray
 
 @pytest.fixture
 def array(mocker):
-    animator_mock = mocker.Mock()
+    animator_mock = mocker.MagicMock(spec=MDSArrayAnimator)
     return MDSArray(elementsList=[1, 2, 2, 3, 4], animator=animator_mock)
 
 def test_append(array):
@@ -71,3 +72,14 @@ def test_sort(array):
 def test_insert_calls_animate_insertion(array):
     array.insert(0, 'value')
     array.animator.animate_insertion.assert_called_once_with('value', 0)
+
+def test_animator_type_check(mocker):
+    incorrect_animator = mocker.Mock()  # Create a Mock object which is not an MDSArrayAnimator
+    with pytest.raises(TypeError):  # Expect a TypeError to be raised
+        MDSArray([], incorrect_animator)
+
+def test_animator_init_call(mocker):
+    animator_mock = mocker.MagicMock(spec=MDSArrayAnimator)
+    elements = [1, 2, 3]
+    array = MDSArray(elements, animator_mock)
+    animator_mock.animate_init.assert_called_once_with(elements)

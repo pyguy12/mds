@@ -1,6 +1,13 @@
 from abc import ABC, abstractmethod
 
 class MDSAnimator(ABC):
+    def __init__(self, scene):
+        self.scene = scene
+
+    @abstractmethod
+    def animate_init(self, values):
+        pass
+
     @abstractmethod
     def animate_insertion(self, value, index=None):
         pass
